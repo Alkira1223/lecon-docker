@@ -1,18 +1,21 @@
 
+# Introduction à Docker 
+
 ## Qu'est-ce que Docker ?
 
-Docker est une plateforme open-source qui permet de créer, livrer et exécuter des applications dans des conteneurs. Un conteneur est une unité standard de logiciel qui regroupe le code et toutes ses dépendances pour que l'application s'exécute rapidement et de manière fiable dans n'importe quel environnement.
+Docker est une **plateforme open-source** qui permet de **créer, livrer et exécuter des applications dans des conteneurs**.
+Un conteneur est une **unité standard de logiciel** qui regroupe le **code source** de l’application ainsi que **toutes ses dépendances** (bibliothèques, binaires, fichiers de configuration) pour assurer une **exécution fiable et cohérente** dans n’importe quel environnement (développement, test, production...).
 
 ---
 
 ## Pourquoi utiliser Docker ?
 
-- Portabilité : le même conteneur peut être exécuté sur différentes machines sans modifications.
-- Isolation : chaque application tourne dans son propre conteneur.
-- Rapidité : les conteneurs démarrent en quelques secondes.
-- Légèreté : plus légers que les machines virtuelles, car ils partagent le noyau de l’hôte.
-- Cohérence : comportement identique en développement, test et production.
-- Écosystème : Docker Hub, Docker Compose, intégration avec Kubernetes.
+* **Portabilité** : un conteneur peut être exécuté sans modification sur n’importe quel système hôte disposant de Docker.
+* **Isolation** : chaque application s’exécute dans un environnement isolé, ce qui évite les conflits de dépendances.
+* **Rapidité** : les conteneurs démarrent quasi instantanément car ils ne nécessitent pas de système d’exploitation complet.
+* **Légèreté** : les conteneurs partagent le noyau du système hôte, ce qui réduit leur empreinte mémoire par rapport aux machines virtuelles.
+* **Cohérence** : garantit le même comportement dans tous les environnements, de la machine du développeur au serveur de production.
+* **Écosystème riche** : comprend Docker Hub (registre d’images), Docker Compose, intégration avec Kubernetes, etc.
 
 ---
 
@@ -20,17 +23,17 @@ Docker est une plateforme open-source qui permet de créer, livrer et exécuter 
 
 ### Images Docker
 
-Une image est un modèle figé contenant le code de l’application, les bibliothèques, les dépendances et les fichiers nécessaires à l’exécution.
+Une **image Docker** est un **modèle figé** contenant l’environnement nécessaire à l’exécution d’une application : système minimal, dépendances, code, etc.
 
-> Image = classe (définition), conteneur = objet (instance)
+> **Analogie** : une *image* est comme une *classe* en programmation orientée objet, tandis qu’un *conteneur* est comme une *instance* de cette classe.
 
 ### Conteneurs Docker
 
-Un conteneur est une instance active d'une image. Il est isolé du système d’exploitation hôte mais partage le noyau.
+Un **conteneur** est une **instance en cours d’exécution** d’une image. Il est **isolé du système hôte**, mais partage son noyau. Chaque conteneur possède son propre système de fichiers, ses processus, et ses ports réseau.
 
 ### Dockerfile
 
-Fichier texte contenant les instructions de construction d’une image.
+Un **Dockerfile** est un fichier texte contenant les instructions nécessaires à la construction d’une image.
 
 ```dockerfile
 FROM python:3.10
@@ -38,26 +41,29 @@ WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
 CMD ["python", "main.py"]
-````
+```
 
 ### Docker Hub et autres registries
 
-Docker Hub est un registre d’images public. Il est possible d’utiliser des registres privés (GitLab, AWS ECR, etc.).
+**Docker Hub** est un registre d’images public. Il permet de télécharger des images officielles ou personnalisées.
+D’autres registres peuvent être utilisés, comme **GitLab Container Registry**, **Amazon ECR**, **Harbor**, etc.
 
 ### Volumes
 
-Les volumes permettent de stocker des données persistantes au-delà du cycle de vie d’un conteneur.
+Les **volumes Docker** permettent de **conserver des données de manière persistante**, même après la suppression d’un conteneur. Ils sont particulièrement utiles pour les bases de données.
 
 ### Réseaux Docker
 
-* bridge : réseau interne par défaut entre conteneurs
-* host : accès direct au réseau de l’hôte
-* none : aucun accès réseau
-* overlay : réseau multi-hôtes (cluster)
+Docker propose plusieurs types de réseaux :
+
+* **bridge** : réseau privé par défaut entre les conteneurs
+* **host** : le conteneur utilise directement le réseau de la machine hôte
+* **none** : le conteneur n’a aucun accès réseau
+* **overlay** : réseau distribué pour les environnements multi-hôtes (utilisé avec Docker Swarm ou Kubernetes)
 
 ---
 
-## Installation de Docker (exemple Ubuntu)
+## Installation de Docker (exemple pour Ubuntu)
 
 ```bash
 sudo apt update
@@ -75,29 +81,29 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 
 ## Commandes Docker essentielles
 
-### Images
+### Gestion des images
 
 ```bash
-docker pull ubuntu:latest
-docker build -t monimage:1.0 .
-docker images
-docker rmi monimage:1.0
+docker pull ubuntu:latest          # Télécharge l'image Ubuntu la plus récente
+docker build -t monimage:1.0 .     # Construit une image depuis un Dockerfile
+docker images                      # Liste les images présentes
+docker rmi monimage:1.0            # Supprime une image
 ```
 
-### Conteneurs
+### Gestion des conteneurs
 
 ```bash
-docker run ubuntu:latest echo "Bonjour"
-docker run -d nginx
-docker run -p 8080:80 nginx
-docker ps
-docker ps -a
-docker stop <id>
-docker start <id>
-docker restart <id>
-docker rm <id>
-docker exec -it <id> bash
-docker logs <id>
+docker run ubuntu:latest echo "Bonjour"     # Exécute une commande dans un conteneur temporaire
+docker run -d nginx                         # Lance un conteneur en arrière-plan
+docker run -p 8080:80 nginx                 # Redirige les ports (localhost:8080 → conteneur:80)
+docker ps                                   # Liste les conteneurs actifs
+docker ps -a                                # Liste tous les conteneurs (actifs ou non)
+docker stop <id>                            # Arrête un conteneur
+docker start <id>                           # Démarre un conteneur arrêté
+docker restart <id>                         # Redémarre un conteneur
+docker rm <id>                              # Supprime un conteneur
+docker exec -it <id> bash                   # Accède à un terminal interactif dans le conteneur
+docker logs <id>                            # Affiche les logs du conteneur
 ```
 
 ### Volumes et réseaux
@@ -114,7 +120,7 @@ docker network create monreseau
 ### Nettoyage
 
 ```bash
-docker system prune
+docker system prune     # Supprime les conteneurs, images, volumes inutilisés
 ```
 
 ---
@@ -123,11 +129,10 @@ docker system prune
 
 ### Avantages
 
-* Définit plusieurs services dans un fichier unique
-* Démarrage en une seule commande
-* Support du réseau, des volumes, de la dépendance entre services
+Docker Compose permet de **définir et exécuter des applications multi-conteneurs** à l’aide d’un simple fichier YAML.
+Il facilite la configuration, l’orchestration et le déploiement local.
 
-### Exemple de fichier docker-compose.yml
+### Exemple de fichier `docker-compose.yml`
 
 ```yaml
 version: '3.8'
@@ -158,35 +163,37 @@ volumes:
 ### Commandes utiles
 
 ```bash
-docker compose up
-docker compose up -d
-docker compose down
-docker compose build
-docker compose ps
-docker compose logs
+docker compose up           # Lance les services définis
+docker compose up -d        # Lance en mode détaché
+docker compose down         # Arrête et supprime les services
+docker compose build        # Construit les images
+docker compose ps           # Affiche les services en cours
+docker compose logs         # Affiche les logs
 ```
 
 ---
 
-
-
 ## Docker dans un pipeline CI/CD
 
-1. Build : construction de l’image depuis le Dockerfile
-2. Test : exécution de tests dans des conteneurs
-3. Push : publication de l’image dans un registre
-4. Deploy : déploiement de l’image sur les serveurs
+Docker est très utilisé dans l’automatisation du cycle de vie des applications :
+
+1. **Build** : création d’une image à partir du code source via un Dockerfile.
+2. **Test** : exécution de tests automatisés dans un environnement conteneurisé.
+3. **Push** : publication de l’image sur un registre (Docker Hub, GitLab, ECR...).
+4. **Deploy** : déploiement automatique de l’image sur un environnement cible (serveur, cluster...).
 
 ---
 
 ## Orchestration avec Kubernetes
 
-Kubernetes est utilisé pour gérer un grand nombre de conteneurs :
+**Kubernetes** est une plateforme d’orchestration open-source conçue pour :
 
-* Répartition automatique de la charge
-* Scalabilité
-* Surveillance
-* Redémarrage automatique
-* Mise à jour sans interruption
+* **Gérer des dizaines à des milliers de conteneurs** dans un cluster
+* **Répartir automatiquement la charge** entre les nœuds
+* **Faire monter ou descendre les services** (scalabilité horizontale)
+* **Surveiller l’état des conteneurs**
+* **Redémarrer automatiquement** les conteneurs défaillants
+* **Assurer des mises à jour progressives et sans interruption**
 
 ---
+
