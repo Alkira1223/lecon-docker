@@ -84,26 +84,26 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 ### Gestion des images
 
 ```bash
-docker pull ubuntu:latest          # Télécharge l'image Ubuntu la plus récente
-docker build -t monimage:1.0 .     # Construit une image depuis un Dockerfile
-docker images                      # Liste les images présentes
-docker rmi monimage:1.0            # Supprime une image
+docker pull ubuntu:latest          
+docker build -t monimage:1.0 .     
+docker images                      
+docker rmi monimage:1.0            
 ```
 
 ### Gestion des conteneurs
 
 ```bash
-docker run ubuntu:latest echo "Bonjour"     # Exécute une commande dans un conteneur temporaire
-docker run -d nginx                         # Lance un conteneur en arrière-plan
-docker run -p 8080:80 nginx                 # Redirige les ports (localhost:8080 → conteneur:80)
-docker ps                                   # Liste les conteneurs actifs
-docker ps -a                                # Liste tous les conteneurs (actifs ou non)
-docker stop <id>                            # Arrête un conteneur
-docker start <id>                           # Démarre un conteneur arrêté
-docker restart <id>                         # Redémarre un conteneur
-docker rm <id>                              # Supprime un conteneur
-docker exec -it <id> bash                   # Accède à un terminal interactif dans le conteneur
-docker logs <id>                            # Affiche les logs du conteneur
+docker run ubuntu:latest echo "Bonjour"     
+docker run -d nginx                       
+docker run -p 8080:80 nginx                
+docker ps                                  
+docker ps -a                                
+docker stop <id>                           
+docker start <id>                           
+docker restart <id>                         
+docker rm <id>                              
+docker exec -it <id> bash                   
+docker logs <id>                            
 ```
 
 ### Volumes et réseaux
@@ -120,7 +120,7 @@ docker network create monreseau
 ### Nettoyage
 
 ```bash
-docker system prune     # Supprime les conteneurs, images, volumes inutilisés
+docker system prune   
 ```
 
 ---
@@ -163,12 +163,12 @@ volumes:
 ### Commandes utiles
 
 ```bash
-docker compose up           # Lance les services définis
-docker compose up -d        # Lance en mode détaché
-docker compose down         # Arrête et supprime les services
-docker compose build        # Construit les images
-docker compose ps           # Affiche les services en cours
-docker compose logs         # Affiche les logs
+docker compose up           
+docker compose up -d       
+docker compose down         
+docker compose build       
+docker compose ps         
+docker compose logs        
 ```
 
 ---
