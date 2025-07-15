@@ -1,13 +1,3 @@
-Voici la version du **cours Docker** en **Markdown pur**, sans emojis et sans ton conversationnel :
-
----
-
-````markdown
-# Introduction à Docker : Un Guide Complet
-
-Bienvenue dans ce guide complet sur Docker. Ce document fournit une compréhension claire et approfondie de Docker, de ses concepts fondamentaux à ses usages pratiques.
-
----
 
 ## Qu'est-ce que Docker ?
 
@@ -178,16 +168,7 @@ docker compose logs
 
 ---
 
-## Bonnes pratiques
 
-* Utiliser des images minimales (ex : alpine)
-* Ne stocker aucun mot de passe dans l’image
-* Utiliser `.dockerignore` pour réduire la taille de l’image
-* Un conteneur = un seul processus
-* Nettoyer les couches inutiles dans le Dockerfile
-* Préciser les versions des images (ex: `nginx:1.21` au lieu de `latest`)
-
----
 
 ## Docker dans un pipeline CI/CD
 
@@ -209,18 +190,3 @@ Kubernetes est utilisé pour gérer un grand nombre de conteneurs :
 * Mise à jour sans interruption
 
 ---
-
-## Conclusion
-
-Ce document présente l’essentiel pour comprendre et utiliser Docker :
-
-* Maîtrise des images, conteneurs, volumes et réseaux
-* Construction et exécution avec Dockerfile et Compose
-* Intégration dans un workflow DevOps moderne
-
-Docker est un outil fondamental pour le développement et le déploiement d'applications modernes.
-
-```
-
-Souhaitez-vous que je génère un fichier `.md` prêt à télécharger ?
-```
