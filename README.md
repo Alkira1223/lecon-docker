@@ -1,4 +1,3 @@
-# Carte Étudiante
 
 ---
 
@@ -11,10 +10,6 @@
 ## **NIVEAU :** `L1A`
 
 ---
-
-Étudiante en 1ère année - Informatique (L1A)  
-Université / Établissement : *à compléter*  
-Identifiant : 211
 
 # Introduction à Docker 
 
